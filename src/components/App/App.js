@@ -5,7 +5,7 @@ import AppBar from '../AppBar/index';
 function App() {
   return (
     <div className="App">
-      <AppBar title={"Introductory Business Simulation"} />
+      <AppBar title={'Introductory Business Simulation'} />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

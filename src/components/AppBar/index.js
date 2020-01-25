@@ -32,7 +32,7 @@ const AppBar = (props) => {
     <header style={styles.header}>
       <div style={styles.flexContainer}>
         <div style={styles.leftContainer}>
-          <h1>
+          <h1 style={styles.titleHeader}>
             {props.title}
           </h1>
         </div>

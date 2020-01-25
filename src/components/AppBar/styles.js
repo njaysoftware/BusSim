@@ -1,8 +1,7 @@
 export default {
   header: {
     textAlign: 'left',
-    height: '40px',
-    fontSize: '1.25rem'
+    backgroundColor: '#bf9833'
   },
   leftContainer: {
     width: '80%',
@@ -10,11 +9,17 @@ export default {
   },
   rightContainer: {
     width: '20%',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   flexContainer: {
     display: 'flex',
   },
   iconStyles: {
     fontSize: '40px',
+  },
+  titleHeader: {
+    fontSize: '25px',
+    paddingLeft: '10px'
   }
 };
