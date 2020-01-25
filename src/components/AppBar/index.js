@@ -1,7 +1,7 @@
 /**
 Author: Nathaniel Padgett
 Date: 01/20/2020
-Copyright: Nathaniel Padgett 2019
+Copyright: Nathaniel Padgett 2020
 Purpose:
 Simple App bar that takes a title that can be resuzed has a drop down menu component to the left
  */
