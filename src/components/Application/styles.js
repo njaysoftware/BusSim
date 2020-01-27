@@ -15,7 +15,6 @@ export default {
     gridTemplateRows: '2fr 1fr'
   },
   currentDecisionsContainer: {
-    backgroundColor: 'red',
   },
   buttonsContainer: {
     backgroundColor: 'red',

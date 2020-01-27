@@ -12,6 +12,7 @@ export default {
   },
   LabelContainer: {
     display: 'inline-block',
+    fontSize: '12px',
   },
   ChipContainer: {
     display: 'inline-block',

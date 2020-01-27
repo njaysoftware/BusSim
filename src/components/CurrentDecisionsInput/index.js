@@ -18,6 +18,14 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 const CurrentDecisionsInput = (props) => {
   // props are a title or type, a function to call when value changes, a key, a starting value, and a increment and decrementer
   const [counter, setCounter] = React.useState(props.startValue);
+  
+  function handleChange(change) {
+    if (counter + change < 0) {
+      setCounter(counter);
+      return;
+    }
+    setCounter(counter + change);
+  }
   return (
     <div style={Styles.Container}>
       <div style={Styles.LabelContainer}>
@@ -31,12 +39,12 @@ const CurrentDecisionsInput = (props) => {
           orientation="vertical"
         >
           <IconButton
-            onClick={() => setCounter(counter + props.changeValue)}
+            onClick={() => handleChange(props.changeValue)}
           >
             <KeyboardArrowUpIcon fontSize='small'/>
           </IconButton>
           <IconButton
-            onClick={() => setCounter(counter - props.changeValue)}
+            onClick={() => handleChange(-props.changeValue)}
           >
             <KeyboardArrowDownIcon fontSize='small'/>
           </IconButton>
