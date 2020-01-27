@@ -5,7 +5,7 @@ import Application from '../Application/index';
 function App() {
   return (
     <div className="App">
-      <AppBar title={'Introductory Business Simulation'} />
+      <AppBar title={'Introductory Business Simulation'}/>
       <Application/>
     </div>
   );

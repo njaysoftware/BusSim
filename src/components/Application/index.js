@@ -6,10 +6,15 @@ Purpose:
 To provide a css grid layout for the different component. Also, provides a place for dialogs to open and close from.
  */
 import React from 'react';
+import Styles from './styles';
 
 const Application = () => {
   return (
-    <div>
+    <div style={Styles.gridContainer}>
+      <div style={Styles.currentDecisionsContainer}>This is block 1</div>
+      <div style={Styles.buttonsContainer}>This is block 1</div>
+      <div style={Styles.currentOutputsContainer}>This is block 1</div>
+      <div style={Styles.industryAverageContainer}>This is block 1</div>
     </div>
   );
 };
