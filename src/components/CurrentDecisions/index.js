@@ -73,7 +73,6 @@ const CurrentDecisions = (props) => {
       {CurrentInputs.map((element) => {
         return <CurrentDecisionsInput title={element.title} startValue={element.startValue} changeValue={element.changeValue} key={element.key}></CurrentDecisionsInput>
       })}
-
     </Card>
   );
 };

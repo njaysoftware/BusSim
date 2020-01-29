@@ -17,7 +17,6 @@ export default {
   currentDecisionsContainer: {
   },
   buttonsContainer: {
-    backgroundColor: 'red',
   },
   currentOutputsContainer: {
     backgroundColor: 'red',
@@ -27,4 +26,8 @@ export default {
     gridColumnStart: 1,
     gridColumnEnd: 4,
   },
+  buttonRow: {
+    display: 'flex',
+    justifyContent: 'space-around',
+  }
 };
