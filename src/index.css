@@ -1,6 +1,8 @@
 body {
   margin: 0;
+  background-color: #4a4a4a;
   font-family: 'Roboto';
+  color: #4a4a4a;
   min-width: 1080px;
   max-height: 100vh;
   -webkit-font-smoothing: antialiased;

@@ -53,7 +53,7 @@ const Application = () => {
         <CurrentDecisions></CurrentDecisions>
       </div>
       <div style={Styles.buttonsContainer}>
-        <Paper>
+        <Paper elevation={3}>
           <div style={Styles.buttonRow}>
             <Button
               onClick={() => handleClick(SIMULATE_CLICK)}

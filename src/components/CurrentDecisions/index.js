@@ -69,7 +69,8 @@ const CurrentInputs = [
 ];
 const CurrentDecisions = (props) => {
   return (
-    <Paper >
+    <Paper elevation={3}>
+      <h3>Current Decisions</h3>
       {CurrentInputs.map((element) => {
         return <CurrentDecisionsInput title={element.title} startValue={element.startValue} changeValue={element.changeValue} key={element.key}></CurrentDecisionsInput>
       })}

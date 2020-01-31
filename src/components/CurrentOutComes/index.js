@@ -43,7 +43,8 @@ const PossibleOutcomes = [
 ];
 const CurrentOutcomes = (props) => {
   return (
-    <Paper>
+    <Paper elevation={3}>
+      <h3>Current Outcomes</h3>
       {PossibleOutcomes.map(el => <Outcome title={el.title} key={el.key} value="2"></Outcome>)}
     </Paper>
   );
