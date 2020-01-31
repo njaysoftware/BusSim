@@ -8,7 +8,7 @@ The main current decisions component for rendering all the options to be changed
 import React from 'react';
 import CurrentDecisionsInput from '../CurrentDecisionsInput/index';
 import {
-  Card,
+  Paper,
 } from '@material-ui/core';
 
 const CurrentInputs = [
@@ -69,11 +69,11 @@ const CurrentInputs = [
 ];
 const CurrentDecisions = (props) => {
   return (
-    <Card>
+    <Paper >
       {CurrentInputs.map((element) => {
         return <CurrentDecisionsInput title={element.title} startValue={element.startValue} changeValue={element.changeValue} key={element.key}></CurrentDecisionsInput>
       })}
-    </Card>
+    </Paper>
   );
 };
 

@@ -13,10 +13,10 @@ const OutCome = (props) => {
   return (
     <div>
       <div>
-        <title>{props.title}</title>
+        <label>{props.title}</label>
       </div>
       <div>
-        <Chip>{props.value}</Chip>
+        <Chip label={props.value} />
       </div>
     </div>
   );

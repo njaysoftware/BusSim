@@ -19,7 +19,6 @@ export default {
   buttonsContainer: {
   },
   currentOutputsContainer: {
-    backgroundColor: 'red',
   },
   industryAverageContainer: {
     backgroundColor: 'red',

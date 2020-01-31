@@ -9,9 +9,12 @@ import React from 'react';
 import Styles from './styles';
 import {
   Button,
-  Card,
+  Paper,
 } from '@material-ui/core';
-import CurrentDecisions from '../CurrentDecisions/index';
+import CurrentOutcomes from '../CurrentOutComes';
+import CurrentDecisions from '../CurrentDecisions';
+
+
 const SIMULATE_CLICK = 'SIMULATE_CLICK';
 const FINANCIAL_CLICK = 'FINANCIAL_CLICK';
 const RESET_CLICK = 'RESET_CLICK';
@@ -50,7 +53,7 @@ const Application = () => {
         <CurrentDecisions></CurrentDecisions>
       </div>
       <div style={Styles.buttonsContainer}>
-        <Card>
+        <Paper>
           <div style={Styles.buttonRow}>
             <Button
               onClick={() => handleClick(SIMULATE_CLICK)}
@@ -75,9 +78,11 @@ const Application = () => {
               onClick={() => handleClick(INFORMATION_CLICK)}
             >Information</Button>
           </div>
-        </Card>
+        </Paper>
       </div>
-      <div style={Styles.currentOutputsContainer}>This is block 1</div>
+      <div style={Styles.currentOutputsContainer}>
+        <CurrentOutcomes></CurrentOutcomes>
+      </div>
       <div style={Styles.industryAverageContainer}>This is block 1</div>
     </div>
   );
