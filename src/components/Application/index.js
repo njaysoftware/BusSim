@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import CurrentOutcomes from '../CurrentOutComes';
 import CurrentDecisions from '../CurrentDecisions';
+import IndustryAverage from '../IndustryAverage';
 
 
 const SIMULATE_CLICK = 'SIMULATE_CLICK';
@@ -83,7 +84,9 @@ const Application = () => {
       <div style={Styles.currentOutputsContainer}>
         <CurrentOutcomes></CurrentOutcomes>
       </div>
-      <div style={Styles.industryAverageContainer}>This is block 1</div>
+      <div style={Styles.industryAverageContainer}>
+        <IndustryAverage />
+      </div>
     </div>
   );
 };

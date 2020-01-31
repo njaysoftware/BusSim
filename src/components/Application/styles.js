@@ -21,9 +21,9 @@ export default {
   currentOutputsContainer: {
   },
   industryAverageContainer: {
-    backgroundColor: 'red',
     gridColumnStart: 1,
     gridColumnEnd: 4,
+    maxHeight: '250px',
   },
   buttonRow: {
     display: 'flex',

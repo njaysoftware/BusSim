@@ -24,6 +24,7 @@ const CurrentDecisionsInput = (props) => {
       setCounter(counter);
       return;
     }
+    props.valueChangeEvent(counter + change);
     setCounter(counter + change);
   }
   return (
