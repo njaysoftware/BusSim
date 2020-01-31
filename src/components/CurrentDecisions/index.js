@@ -91,6 +91,66 @@ class CurrentDecisions extends React.Component {
       price: CurrentInputs[0].startValue,
     };
   }
+  _randRange(min, max) {
+    return Math.floor(Math.random() * (max-min + 1)) + min;
+  }
+  _ai(decisionData, resultData, period) {
+    /*decisionData shape
+    {
+      price: [[], []]
+      marketing: [[]],
+      quality: [[]],
+      technology: [[]],
+      incentives: [[]],
+      loanPay: [[]],
+      dividends: [[]],
+      tBill: [[]],
+    }
+    */
+    const FIRST_PERIOD = 0;
+    const NUMBER_OF_TIMES_SIMULATED = 9;
+    const AVERAGE_COLUMN_IN_DECISION_DATA = 0;
+
+    let sumPrice = 0, sumMarket = 0, sumQuality = 0, sumTechnology = 0, sumIncentives = 0;
+    for (let index = 2; index <= 10; index++) {
+      
+      decisionData.price[index][period] = this._randRange(decisionData.price[index][FIRST_PERIOD] -2, decisionData.price[index][FIRST_PERIOD] + 2);
+      decisionData.market[index][period] = Math.floor(this._randRange(decisionData.market[index][FIRST_PERIOD] -20000, decisionData.market[index][FIRST_PERIOD] + 20000));
+      decisionData.quality[index][period] = Math.floor(this._randRange(decisionData.quality[index][FIRST_PERIOD] -20000, decisionData.quality[index][FIRST_PERIOD] + 20000));
+      decisionData.technology[index][period] = Math.floor(this._randRange(decisionData.technology[index][FIRST_PERIOD] -20000, decisionData.technology[index][FIRST_PERIOD] + 20000));
+      decisionData.incentives[index][period] = Math.floor(this._randRange(decisionData.incentives[index][FIRST_PERIOD] -20000, decisionData.incentives[index][FIRST_PERIOD] + 20000));
+      decisionData.loanPay[index][period] = 0;
+      decisionData.dividends[index][period] = period * 3000;
+      decisionData.tBill[index][period] = 0;
+      decisionData.production[index][period] = resultData.demand[index][period];
+      
+      sumPrice += decisionData.price[index][period];
+      sumMarket += decisionData.market[index][period];
+      sumQuality += decisionData.quality[index][period];
+      sumTechnology += decisionData.technology[index][period];
+      sumIncentives += decisionData.incentives[index][period];
+    }
+    
+    decisionData.price[AVERAGE_COLUMN_IN_DECISION_DATA][period] = sumPrice / NUMBER_OF_TIMES_SIMULATED;
+    
+    decisionData.market[AVERAGE_COLUMN_IN_DECISION_DATA][period] = sumMarket / NUMBER_OF_TIMES_SIMULATED;
+    
+    decisionData.quality[AVERAGE_COLUMN_IN_DECISION_DATA][period] = sumQuality / NUMBER_OF_TIMES_SIMULATED;
+    
+    decisionData.technology[AVERAGE_COLUMN_IN_DECISION_DATA][period] = sumTechnology / NUMBER_OF_TIMES_SIMULATED;
+    
+    decisionData.incentives[AVERAGE_COLUMN_IN_DECISION_DATA][period] = sumIncentives / NUMBER_OF_TIMES_SIMULATED;
+    
+    return decisionData;
+  }
+  simulate() {
+    
+  }
+  
+  sale(period) {
+    let salexp, demexp, dte, sump,  sums, sumsp;
+
+  }
   
   render() {
     return (
