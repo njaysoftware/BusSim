@@ -20,4 +20,7 @@ export default {
   ButtonContainer: {
     display: 'inline-block',
   },
+  customButton: {
+    padding: 0,
+  }
 };
