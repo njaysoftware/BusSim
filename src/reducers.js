@@ -119,7 +119,7 @@ function results(state = {
   Inventory: _initalData(),
   Expenses: _initalData(),
   Vc: _initalData(),
-  Sp: _initalData(),
+  Sp: _initalData(), // @TODO: Need to rename this everywhere Sp == StockPrice 
   Cash: _initalData(),
 }, action) {
 

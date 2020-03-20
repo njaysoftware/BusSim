@@ -26,6 +26,9 @@ import CurrentOutcomes from '../CurrentOutComes';
 import CurrentDecisions from '../CurrentDecisions';
 import IndustryAverage from '../IndustryAverage';
 import CurrentInputs from '../CurrentDecisionsInput/decisionInputs';
+import Period from '../Period/index';
+import FinancialStatements from '../FinancialStatement/index';
+import PropTypes from 'prop-types';
 
 const SIMULATE_CLICK = 'SIMULATE_CLICK';
 const FINANCIAL_CLICK = 'FINANCIAL_CLICK';
@@ -33,6 +36,7 @@ const RESET_CLICK = 'RESET_CLICK';
 const PERFORMANCE_CLICK = 'PERFORMANCE_CLICK';
 const FINAL_RESULTS_CLICK = 'FINAL_RESULTS_CLICK';
 const INFORMATION_CLICK = 'INFORMATION_CLICK';
+
 class Application extends React.Component {
   constructor(props) {
     super(props);
@@ -47,7 +51,134 @@ class Application extends React.Component {
       quality: CurrentInputs[2].startValue,
       marketing: CurrentInputs[1].startValue,
       price: CurrentInputs[0].startValue,
+      FinancialDialog: false,
     };
+  }
+  componentDidMount() {
+    this._initialization(this.props.decision, this.props.results, this.props.incomeStatement, this.props.balanceSheet, this.props.cashFlow);
+  }
+  _initialization(decisionData, resultData, incomeStatement, balanceSheet, cashFlow) {
+    for(let index = 0; index <= 10; index++) {
+      for (let jen = 0; jen <= 12; jen++) {
+        // reseting results data
+        resultData.Demand[index][jen] = 0;
+        resultData.Sales[index][jen] = 0;
+        resultData.Production[index][jen] = 0;
+        resultData.Revenue[index][jen] = 0;
+        resultData.Inventory[index][jen] = 0;
+        resultData.Profit[index][jen] = 0;
+        resultData.Cash[index][jen] = 0;
+        resultData.Sp[index][jen] = 0;
+        resultData.Expenses[index][jen] = 0;
+        resultData.Vc[index][jen] = 0;
+        // reseting Decision Data
+        decisionData.price[index][jen] = 0;
+        decisionData.market[index][jen] = 0;
+        decisionData.quality[index][jen] = 0;
+        decisionData.technology[index][jen] = 0;
+        decisionData.incentives[index][jen] = 0;
+        decisionData.dividends[index][jen] = 0;
+        decisionData.loanPay[index][jen] = 0;
+        decisionData.tBill[index][jen] = 0;
+        decisionData.Info[index][jen] = 0;
+        // @TODO: Figure out what lsoFin.rev is because it only shows up init and in the reset
+        incomeStatement.DirectLabor[index][jen] = 0;
+        incomeStatement.DirectMaterials[index][jen] = 0;
+        incomeStatement.Penalty[index][jen] = 0;
+        incomeStatement.ManufacturingOhio[index][jen] = 0;
+        incomeStatement.GrossMargin[index][jen] = 0;
+        incomeStatement.Depriciation[index][jen] = 0;
+        incomeStatement.InventoryCarrying[index][jen] = 0;
+        incomeStatement.GeneralAdmin[index][jen] = 0;
+        incomeStatement.NetInterest[index][jen] = 0;
+        incomeStatement.OperatingProfit[index][jen] = 0;
+        incomeStatement.TaxableIncome[index][jen] = 0;
+        incomeStatement.Tax[index][jen] = 0;
+        incomeStatement.TaxPrevious[index][jen] = 0;
+        // balance sheet reset
+
+        balanceSheet.Land[index][jen] = 0;
+        balanceSheet.InventoryAmount[index][jen] = 0;
+        balanceSheet.Building[index][jen] = 0;
+        balanceSheet.Equipment[index][jen] = 0;
+        balanceSheet.EquipmentDepriciation[index][jen] = 0;
+        balanceSheet.BuildingDepriciation[index][jen] = 0;
+        // @TODO: Figure out lsoFin.expp only shows up init and in the reset function
+        balanceSheet.AccountsReceivable[index][jen] = 0;
+        balanceSheet.Invest[index][jen] = 0;
+        balanceSheet.AccountsPayable[index][jen] = 0;
+        balanceSheet.LongTermLoans[index][jen] = 0;
+        balanceSheet.ShortTermLoans[index][jen] = 0;
+        balanceSheet.TotalLiabilities[index][jen] = 0;
+        balanceSheet.Common[index][jen] = 0;
+        balanceSheet.RetainedEarnings[index][jen] = 0;
+        balanceSheet.TotalStockHoldersEquity[index][jen] = 0;
+        balanceSheet.TotalCurrentAssets[index][jen] = 0;
+        balanceSheet.TotalAssets[index][jen] = 0;
+        balanceSheet.TotalLiabiltyAndEquity[index][jen] = 0;
+        
+        // cash flow
+        cashFlow.IndirectCash[index][jen] = 0;
+        cashFlow.OperatingExpenses[index][jen] = 0;
+        cashFlow.CashIn[index][jen] = 0;
+        cashFlow.CashOut[index][jen] = 0;
+        cashFlow.DirectCash[index][jen] = 0;
+        cashFlow.InvestmentChange[index][jen] = 0;
+        cashFlow.FinancialActivities[index][jen] = 0;
+        
+      }
+      // Not sure what these numbers mean but they are what were in the other program
+      resultData.Demand[index][0] = 80000;
+      resultData.Demand[index][1] = 75000;
+      resultData.Demand[index][2] = 90000;
+      resultData.Demand[index][3] = 121000;
+      resultData.Demand[index][4] = 920000;
+      resultData.Demand[index][5] = 830000;
+      resultData.Demand[index][6] = 103000;
+      resultData.Demand[index][7] = 130000;
+      resultData.Demand[index][8] = 105000;
+      resultData.Demand[index][9] = 91000;
+      resultData.Demand[index][10] = 115000;
+      resultData.Demand[index][11] = 138000;
+      resultData.Demand[index][12] = 114000;
+      
+      resultData.Sales[index][0] = 80000;
+      resultData.Production[index][0] = 80000;
+      resultData.Revenue[index][0] = 3040000;
+      resultData.Profit[index][0] = 228025;
+      resultData.Cash[index][0] = 100000;
+      resultData.Sp[index][0] = 15;
+      decisionData.price[index][0] = 38;
+      decisionData.market[index][0] = 100000;
+      decisionData.quality[index][0] = 100000;
+      decisionData.technology[index][0] = 100000;
+      decisionData.incentives[index][0] = 100000;
+      
+      balanceSheet.Land[index][0] = 1500000;
+      balanceSheet.Building[index][0] = 4500000;
+      balanceSheet.Equipment[index][0] = 1500000;
+      balanceSheet.BuildingDepriciation[index][0] = -900000;
+      balanceSheet.EquipmentDepriciation[index][0] = -640000;
+      balanceSheet.AccountsReceivable[index][0] = 912000;
+      balanceSheet.AccountsPayable[index][0] = 384000;
+      balanceSheet.LongTermLoans[index][0] = 3000000;
+      balanceSheet.ShortTermLoans[index][0] = 300000;
+      balanceSheet.TotalLiabilities[index][0] = 3684000;
+      balanceSheet.Common[index][0] = 3000000;
+      balanceSheet.RetainedEarnings[index][0] = 288000;
+      balanceSheet.TotalStockHoldersEquity[index][0] = 3288000;
+      balanceSheet.TotalCurrentAssets[index][0] = 1012000;
+      balanceSheet.TotalAssets[index][0] = 6972000;
+      balanceSheet.TotalLiabiltyAndEquity[index][0] = 6972000;
+
+      incomeStatement.GeneralAdmin[index][0] = 600000;
+    }
+
+    this.props.updateBalanceSheet(balanceSheet);
+    this.props.updateCashFlow(cashFlow);
+    this.props.updateIncomeBalance(incomeStatement);
+    this.props.updateDecisions(decisionData);
+    this.props.updateResults(resultData);
   }
 
   _randRange(min, max) {
@@ -70,12 +201,10 @@ class Application extends React.Component {
     const NUMBER_OF_TIMES_SIMULATED = 9;
     const AVERAGE_COLUMN_IN_DECISION_DATA = 0;
 
-    console.log(resultData);
-    console.log(period);
     let sumPrice = 0, sumMarket = 0, sumQuality = 0, sumTechnology = 0, sumIncentives = 0;
     for (let index = 2; index <= 10; index++) {
-      console.log(decisionData); 
-      console.log(index);
+      console.log(decisionData.price[index][FIRST_PERIOD]);
+      console.log(this._randRange(decisionData.price[index][FIRST_PERIOD] -2, decisionData.price[index][FIRST_PERIOD] + 2));
       decisionData.price[index][period] = this._randRange(decisionData.price[index][FIRST_PERIOD] -2, decisionData.price[index][FIRST_PERIOD] + 2);
       decisionData.market[index][period] = Math.floor(this._randRange(decisionData.market[index][FIRST_PERIOD] -20000, decisionData.market[index][FIRST_PERIOD] + 20000));
       decisionData.quality[index][period] = Math.floor(this._randRange(decisionData.quality[index][FIRST_PERIOD] -20000, decisionData.quality[index][FIRST_PERIOD] + 20000));
@@ -85,7 +214,7 @@ class Application extends React.Component {
       decisionData.dividends[index][period] = period * 3000;
       decisionData.tBill[index][period] = 0;
       decisionData.production[index][period] = resultData.Demand[index][period];
-      
+
       sumPrice += decisionData.price[index][period];
       sumMarket += decisionData.market[index][period];
       sumQuality += decisionData.quality[index][period];
@@ -105,14 +234,36 @@ class Application extends React.Component {
     
     return decisionData;
   }
+  _getInputs(decisionData, resultData, period) {
+    const USER_INPUT_COLUMN = 1;
+    console.log(decisionData);
+    // decision data updaate from user inputs
+    decisionData.price[USER_INPUT_COLUMN][period] = this.state.price;
+    decisionData.market[USER_INPUT_COLUMN][period] = this.state.marketing * 1000;
+    decisionData.quality[USER_INPUT_COLUMN][period] = this.state.quality * 1000;
+    decisionData.technology[USER_INPUT_COLUMN][period] = this.state.technology * 1000;
+    decisionData.incentives[USER_INPUT_COLUMN][period] = this.state.incentives * 1000;
+    decisionData.loanPay[USER_INPUT_COLUMN][period] = this.state.loanPay * 1000;
+    decisionData.dividends[USER_INPUT_COLUMN][period] = this.state.dividends * 1000;
+    decisionData.tBill[USER_INPUT_COLUMN][period] = this.state.tBillInvestments * 1000;
+    // update performance
+    resultData.Production[USER_INPUT_COLUMN][period] = this.state.production * 1000;
+    
+    console.log(decisionData);
+    // update store
+    this.props.updateDecisions(decisionData);
+    this.props.updateResults(resultData);
+  }
   _simulate(period) {
     const NUMBER_OF_PERIODS = 12;
     console.log(period);
-    if(period <= NUMBER_OF_PERIODS) {
+    if(period < NUMBER_OF_PERIODS) {
+      this._getInputs(this.props.decision, this.props.results, period);
+      console.log(this.props.decision);
       this.props.updateDecisions(this._ai(this.props.decision, this.props.results, period));
       this.sale(period, this.props.results, this.props.decision, this.props.incomeStatement, this.props.balanceSheet, this.props.cashFlow);
       this.setState((state) => ({
-        period: state.period++,
+        period: state.period + 1,
       }));
     }
   }
@@ -181,9 +332,7 @@ class Application extends React.Component {
     const PERCENTAGE_FOR_SALES_XP = .1; 
     const AVERAGE_SIMULATED_VALUE_POSITION = 0;
     let salexp, demexp, dte, sumProfit,  sumSales, sumsp, taxCurrent, taxPrevious, payoff, changeInAccountsReceivable, changeInInventoryAmount, changeInAccountsPayable, netcash, returnOnSale;
-    console.log("Hey from simulate");
     for(let index = 1; index <= 10; index++) {
-      console.log(index);
       //Not sure what demexp is supposed to be yet. It is based on the results Demand data which doesn't seem to be populated yet
       demexp = this._randRange(resultsData.Demand[index][period] - 2000, resultsData.Demand[index][period] + 2000);
       //Not sure what this is for yet, but it is based on the market value times the demxp which is based on the the resulting Demand Data.
@@ -220,53 +369,53 @@ class Application extends React.Component {
       resultsData.Inventory[index][period] = resultsData.Inventory[index][period - 1] + resultsData.Production[index][period] - resultsData.Sales[index][period];
 
       resultsData.Revenue[index][period] = decisionData.price[index][period] * resultsData.Sales[index][period];
-         /* // incomeStatementData
-          {
-            dl : DirectLabor : [[]]
-            dm : DirectMaterials : [[]]
-            moh : ManufacturingOhio : [[]]
-            gm : GrossMargin : [[]]
-            invcc : InventoryCarrying : [[]]
-            ga : GeneralAdmin : [[]]
-            dep : Depreciation : [[]]
-            penalty : 
-            opinc
-            interest : NetInterest : [[]]
-            taxinc : TaxableIncome : [[]]
-            tax : Tax : [[]]
-            taxprev : taxPrevious
-          }
-          // balanceSheetData 
-          { AR : AccountsReceivable
-          INvest : 
-          INvamt : I/
-          Land: Land : [[]]
-          Bldg : Building : [[]],
-          Equip : Equipment : [[]],
-          Edep: EquipmentDepreciation : [[]]: 
-          Bdep : BuildingDepriciation : [[]]
-          LTL : LongTermLoans : [[]]
-          STL : ShortTermLoans : [[]]
-          AP : AccountsPayable: [[]]
-          Common: Not sure ???????
-          RE : RetainedEarning : [[]]
-          TCA : TotalCurrentAssets : [[]]
-          TA : TotalAssets : [[]]
-          TL : TotalLiabilties: [[]]
-          TSE : TotalStockHoldersEquity : [[]]
-          TLE : TotalLiabilityandEquity : [[]]
-          }
-          //
-          {
-            Investc : InvestingActivities: [[]]
-            Finc : FinancialActivities: [[]]
-            Opexp : OperatingExpenses : [[]]
-            Indcash : IndirectCash : [[]]
-            Dircash : DirectCash : [[]]
-            Cashin: ???????????
-            Cashout: ??????????????????
-          }
-        */ 
+      /* // incomeStatementData
+      {
+        dl : DirectLabor : [[]]
+        dm : DirectMaterials : [[]]
+        moh : ManufacturingOhio : [[]]
+        gm : GrossMargin : [[]]
+        invcc : InventoryCarrying : [[]]
+        ga : GeneralAdmin : [[]]
+        dep : Depreciation : [[]]
+        penalty : 
+        opinc
+        interest : NetInterest : [[]]
+        taxinc : TaxableIncome : [[]]
+        tax : Tax : [[]]
+        taxprev : taxPrevious
+      }
+      // balanceSheetData 
+      { AR : AccountsReceivable
+      INvest : 
+      INvamt : I/
+      Land: Land : [[]]
+      Bldg : Building : [[]],
+      Equip : Equipment : [[]],
+      Edep: EquipmentDepreciation : [[]]: 
+      Bdep : BuildingDepriciation : [[]]
+      LTL : LongTermLoans : [[]]
+      STL : ShortTermLoans : [[]]
+      AP : AccountsPayable: [[]]
+      Common: Not sure ???????
+      RE : RetainedEarning : [[]]
+      TCA : TotalCurrentAssets : [[]]
+      TA : TotalAssets : [[]]
+      TL : TotalLiabilties: [[]]
+      TSE : TotalStockHoldersEquity : [[]]
+      TLE : TotalLiabilityandEquity : [[]]
+      }
+      //
+      {
+        Investc : InvestingActivities: [[]]
+        Finc : FinancialActivities: [[]]
+        Opexp : OperatingExpenses : [[]]
+        Indcash : IndirectCash : [[]]
+        Dircash : DirectCash : [[]]
+        Cashin: ???????????
+        Cashout: ??????????????????
+      }
+    */ 
       incomeStatementData.DirectLabor[index][period] = Math.floor(
         resultsData.Sales[index][period] * 4 * Math.pow(
           decisionData.incentives[AVERAGE_SIMULATED_VALUE_POSITION][period] /
@@ -323,10 +472,6 @@ class Application extends React.Component {
         incomeStatementData.GeneralAdmin[index][period]
       );
 
-      console.log(incomeStatementData.OperatingProfit);
-      console.log(resultsData.Expenses);
-      console.log(incomeStatementData.GrossMargin);
-      console.log(incomeStatementData.Depriciation);
       //@TODO rename this variable I think this is OperatingProfit = opinc
       incomeStatementData.OperatingProfit[index][period] = (
         incomeStatementData.GrossMargin[index][period] -
@@ -518,11 +663,6 @@ class Application extends React.Component {
     resultsData.Sales[AVERAGE_SIMULATED_VALUE_POSITION][period] = Math.floor(sumSales/10);
     resultsData.Sp[AVERAGE_SIMULATED_VALUE_POSITION][period] = sumsp / 10;
     resultsData.Period = period;
-    console.log(balanceSheetData);
-    console.log(incomeStatementData);
-    console.log(cashFlowData);
-    console.log(decisionData);
-    console.log(resultsData);
 
     this.props.updateBalanceSheet(balanceSheetData);
     this.props.updateIncomeBalance(incomeStatementData);
@@ -538,6 +678,7 @@ class Application extends React.Component {
       break;
     case FINANCIAL_CLICK:
       console.log(FINANCIAL_CLICK);
+      this.setState({FinancialDialog: true,});
       break;
     case RESET_CLICK:
       console.log(RESET_CLICK);
@@ -557,13 +698,17 @@ class Application extends React.Component {
     }
   }
 
+  handleDialogClose() {
+    this.setState({FinancialDialog: false,});
+  }
+
   render() {
     return (
       <div style={Styles.gridContainer}>
         <div style={Styles.currentDecisionsContainer}>
           <CurrentDecisions
             decisionChange={(value, decisionName) => {
-              this.setState({[decisionName]: value});
+              this.setState({[decisionName]: value,});
             }}
           ></CurrentDecisions>
         </div>
@@ -594,18 +739,33 @@ class Application extends React.Component {
               >Information</Button>
             </div>
           </Paper>
+          <Period period={this.state.period}></Period>
         </div>
         <div style={Styles.currentOutputsContainer}>
-          <CurrentOutcomes></CurrentOutcomes>
+          <CurrentOutcomes period={this.state.period}></CurrentOutcomes>
         </div>
         <div style={Styles.industryAverageContainer}>
           <IndustryAverage />
         </div>
+        <FinancialStatements displayOpen={this.state.FinancialDialog} handleClose={this.handleDialogClose.bind(this)}/>
       </div>
     );
   }
 }
 
+Application.propTypes = {
+  updateBalanceSheet: PropTypes.func.isRequired,
+  updateCashFlow: PropTypes.func.isRequired,
+  updateIncomeBalance: PropTypes.func.isRequired,
+  updateDecisions: PropTypes.func.isRequired,
+  updateResults: PropTypes.func.isRequired,
+  incrementPeriod: PropTypes.func.isRequired,
+  balanceSheet: PropTypes.object.isRequired,
+  incomeStatement: PropTypes.object.isRequired,
+  results: PropTypes.object.isRequired,
+  decision: PropTypes.object.isRequired,
+  cashFlow: PropTypes.object.isRequired,
+};
 function mapStateToProps(state) {
   return {
     balanceSheet: state.balanceSheet,
@@ -613,7 +773,6 @@ function mapStateToProps(state) {
     results: state.results,
     decision: state.decision,
     cashFlow: state.cashFlow,
-    period: state.period
   };
 }
 const mapDispatchToProps = dispatch => {
@@ -623,7 +782,7 @@ const mapDispatchToProps = dispatch => {
     updateIncomeBalance: (payload) => dispatch(updateIncomeBalance(payload)),
     updateDecisions: (payload) => dispatch(updateDecisions(payload)),
     updateResults: (payload) => dispatch(updateResults(payload)),
-    incrementPeriod: () => dispatch(incrementPeriod())
+    incrementPeriod: () => dispatch(incrementPeriod()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Application);

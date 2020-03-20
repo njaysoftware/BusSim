@@ -3,7 +3,10 @@ module.exports = {
     "browser": true,
     "es6": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -19,6 +22,13 @@ module.exports = {
     "react"
   ],
   "rules": {
+    "comma-dangle": ["error", {
+      "arrays": "never",
+      "objects": "always",
+      "imports": "always",
+      "exports": "never",
+      "functions": "never",
+    }],
     "indent": [
       "error",
       2
