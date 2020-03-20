@@ -18,7 +18,7 @@ const PossibleOutcomes = [
     name: 'Demand',
     title: 'Demand',
     key: 1,
-    default: 80000
+    default: 80000,
   },
   {
     name: 'Inventory',
@@ -42,7 +42,7 @@ const PossibleOutcomes = [
     name: 'Revenue', // @TODO: This is just temporary so that it will compile and run
     title: 'Return-on-Sales',
     key: 5,
-    default: 7.5
+    default: 7.5,
   },
   {
     name: 'Sales',
@@ -54,7 +54,7 @@ const PossibleOutcomes = [
     name: 'Sp',
     title: 'Stock Price',
     key: 7,
-    default: 15
+    default: 15,
   }
 ];
 
@@ -67,7 +67,7 @@ const CurrentOutcomes = (props) => {
       <h3>Current Outcomes</h3>
       {PossibleOutcomes.map(el => {
         console.log(props.results[el.name]);
-        return <Outcome title={el.title} key={el.key} value={props.results[el.name][AVERAGE_SIMULATED_VALUE_POSITION][props.period] == 0 ? el.default : props.results[el.name][AVERAGE_SIMULATED_VALUE_POSITION][props.period]}></Outcome>;
+        return <Outcome title={el.title} key={el.key} value={props.results[el.name][AVERAGE_SIMULATED_VALUE_POSITION][props.period] === 0 ? el.default : props.results[el.name][AVERAGE_SIMULATED_VALUE_POSITION][props.period]}></Outcome>;
       })}
     </Paper>
   );
