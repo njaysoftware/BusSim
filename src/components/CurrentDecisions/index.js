@@ -10,7 +10,8 @@ import CurrentDecisionsInput from '../CurrentDecisionsInput/index';
 import {
   Paper,
 } from '@material-ui/core';
-import CurrentInputs from '../CurrentDecisionsInput/decisionInputs'
+import CurrentInputs from '../CurrentDecisionsInput/decisionInputs';
+import PropTypes from 'prop-types';
 
 const CurrentDecisions = (props) => {
   return (
@@ -23,12 +24,16 @@ const CurrentDecisions = (props) => {
           changeValue={element.changeValue} 
           key={element.key}
           valueChangeEvent={(value) => {
-            props.decisionChange(value, element.name)
+            props.decisionChange(value, element.name);
           }}
         />;
       })}
     </Paper>
   );
+};
+
+CurrentDecisions.propTypes = {
+  decisionChange: PropTypes.func.isRequired,
 };
 
 export default CurrentDecisions;

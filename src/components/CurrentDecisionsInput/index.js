@@ -16,6 +16,7 @@ import {
 // @TODO: Figure out why this does not work as a relative import
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(Styles);
 const CurrentDecisionsInput = (props) => {
@@ -65,4 +66,10 @@ const CurrentDecisionsInput = (props) => {
   );
 };
 
+CurrentDecisionsInput.propTypes = {
+  changeValue: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  valueChangeEvent: PropTypes.func.isRequired,
+  startValue: PropTypes.number.isRequired,
+};
 export default CurrentDecisionsInput;

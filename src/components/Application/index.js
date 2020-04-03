@@ -173,6 +173,13 @@ class Application extends React.Component {
 
       incomeStatement.GeneralAdmin[index][0] = 600000;
     }
+    for(let index = 2; index <= 10; index++) {
+      decisionData.price[index][0] = 35.0 + index * 1.0; //why are we multiplying by 1 that doesn't make any sense
+      decisionData.market[index][0] = 50000 + (index - 1) * 20000;
+      decisionData.quality[index][0] = 45000 + (index -1 ) * 20000;
+      decisionData.technology[index][0] = 40000 + (index - 1) * 20000;
+      decisionData.incentives[index][0] = 30000 + (index - 1) * 20000;
+    }
 
     this.props.updateBalanceSheet(balanceSheet);
     this.props.updateCashFlow(cashFlow);
@@ -203,8 +210,6 @@ class Application extends React.Component {
 
     let sumPrice = 0, sumMarket = 0, sumQuality = 0, sumTechnology = 0, sumIncentives = 0;
     for (let index = 2; index <= 10; index++) {
-      console.log(decisionData.price[index][FIRST_PERIOD]);
-      console.log(this._randRange(decisionData.price[index][FIRST_PERIOD] -2, decisionData.price[index][FIRST_PERIOD] + 2));
       decisionData.price[index][period] = this._randRange(decisionData.price[index][FIRST_PERIOD] -2, decisionData.price[index][FIRST_PERIOD] + 2);
       decisionData.market[index][period] = Math.floor(this._randRange(decisionData.market[index][FIRST_PERIOD] -20000, decisionData.market[index][FIRST_PERIOD] + 20000));
       decisionData.quality[index][period] = Math.floor(this._randRange(decisionData.quality[index][FIRST_PERIOD] -20000, decisionData.quality[index][FIRST_PERIOD] + 20000));
@@ -236,7 +241,6 @@ class Application extends React.Component {
   }
   _getInputs(decisionData, resultData, period) {
     const USER_INPUT_COLUMN = 1;
-    console.log(decisionData);
     // decision data updaate from user inputs
     decisionData.price[USER_INPUT_COLUMN][period] = this.state.price;
     decisionData.market[USER_INPUT_COLUMN][period] = this.state.marketing * 1000;
@@ -249,7 +253,6 @@ class Application extends React.Component {
     // update performance
     resultData.Production[USER_INPUT_COLUMN][period] = this.state.production * 1000;
     
-    console.log(decisionData);
     // update store
     this.props.updateDecisions(decisionData);
     this.props.updateResults(resultData);
@@ -332,6 +335,9 @@ class Application extends React.Component {
     const PERCENTAGE_FOR_SALES_XP = .1; 
     const AVERAGE_SIMULATED_VALUE_POSITION = 0;
     let salexp, demexp, dte, sumProfit,  sumSales, sumsp, taxCurrent, taxPrevious, payoff, changeInAccountsReceivable, changeInInventoryAmount, changeInAccountsPayable, netcash, returnOnSale;
+    sumProfit = 0;
+    sumSales = 0;
+    sumsp = 0;
     for(let index = 1; index <= 10; index++) {
       //Not sure what demexp is supposed to be yet. It is based on the results Demand data which doesn't seem to be populated yet
       demexp = this._randRange(resultsData.Demand[index][period] - 2000, resultsData.Demand[index][period] + 2000);
@@ -346,8 +352,8 @@ class Application extends React.Component {
       
       //Sales Adjustments based on the the quality decisions data
       salexp = demexp * Math.pow(
-        decisionData.quality[index][period] /
-        decisionData.quality[AVERAGE_SIMULATED_VALUE_POSITION][period],
+        (decisionData.quality[index][period] /
+        decisionData.quality[AVERAGE_SIMULATED_VALUE_POSITION][period]),
         PERCENTAGE_FOR_SALES_XP
       );
       if (decisionData.price[index][period] > 45) { //What does the 45 represent and why such an arbitrary value
@@ -356,9 +362,8 @@ class Application extends React.Component {
       } else {
         salexp = salexp * (1.0 + (decisionData.price[AVERAGE_SIMULATED_VALUE_POSITION][period] - decisionData.price[index][period] * .05)); //why these numbers?
       }
-
-      salexp = salexp > resultsData.Demand[index][period] * 1 ? resultsData.Demand[index][period] * 1 : salexp; //What is the 1
-      salexp = salexp > resultsData.Demand[index][period] * 0.2 ? resultsData.Demand[index][period] * 0.2 : salexp; //What is the .2
+      salexp = salexp > (resultsData.Demand[index][period] * 1) ? resultsData.Demand[index][period] * 1 : salexp; //What is the 1
+      salexp = salexp < (resultsData.Demand[index][period] * 0.2) ? resultsData.Demand[index][period] * 0.2 : salexp; //What is the .2
 
       resultsData.Sales[index][period] = resultsData.Production[index][period] + resultsData.Inventory[index][period - 1];
 
@@ -368,7 +373,7 @@ class Application extends React.Component {
 
       resultsData.Inventory[index][period] = resultsData.Inventory[index][period - 1] + resultsData.Production[index][period] - resultsData.Sales[index][period];
 
-      resultsData.Revenue[index][period] = decisionData.price[index][period] * resultsData.Sales[index][period];
+      resultsData.Revenue[index][period] = Math.floor(decisionData.price[index][period] * resultsData.Sales[index][period]);
       /* // incomeStatementData
       {
         dl : DirectLabor : [[]]
@@ -444,7 +449,7 @@ class Application extends React.Component {
       );
       
       balanceSheetData.Land[index][period] = balanceSheetData.Land[index][period - 1];
-
+// This seems confusing in this area.
       balanceSheetData.Building[index][period] = balanceSheetData.Building[index][period - 1];
 
       balanceSheetData.BuildingDepriciation[index][period] = balanceSheetData.BuildingDepriciation[index][period - 1] - (.01 * balanceSheetData.Building[index][period]);
@@ -457,7 +462,7 @@ class Application extends React.Component {
 
       balanceSheetData.InventoryAmount[index][period] = resultsData.Inventory[index][period] * 20;
 
-      incomeStatementData.InventoryCarrying[index][period] = resultsData.Inventory[index][period] * 1;
+      incomeStatementData.InventoryCarrying[index][period] = resultsData.Inventory[index][period] * 1; // Why are we multiplying by 1
 
       incomeStatementData.GeneralAdmin[index][period] = decisionData.Info[index][period] === 1 ? incomeStatementData.GeneralAdmin[index][0] + 20000 : incomeStatementData.GeneralAdmin[index][0]; // So decisonData Info says if the user has checked the checkbox for Purchase Information
 
@@ -506,7 +511,7 @@ class Application extends React.Component {
 
       balanceSheetData.AccountsPayable[index][period] = incomeStatementData.DirectMaterials[index][period] * .4;
 
-      balanceSheetData.LongTermLoans[index][period] = balanceSheetData.LongTermLoans[index][period - 1] - balanceSheetData.LongTermLoans[index][period - 1] * .01;
+      balanceSheetData.LongTermLoans[index][period] = balanceSheetData.LongTermLoans[index][period - 1] - Math.floor(balanceSheetData.LongTermLoans[index][period - 1] * .01);
 
       balanceSheetData.ShortTermLoans[index][period] = balanceSheetData.ShortTermLoans[index][period - 1];
 
@@ -546,8 +551,7 @@ class Application extends React.Component {
 
       changeInAccountsReceivable = balanceSheetData.AccountsReceivable[index][period - 1] - balanceSheetData.AccountsReceivable[index][period];
       changeInInventoryAmount = balanceSheetData.InventoryAmount[index][period - 1] - balanceSheetData.InventoryAmount[index][period];
-      changeInAccountsPayable = balanceSheetData.AccountsPayable[index][period] - balanceSheetData.AccountsReceivable[index][period - 1];
-      
+      changeInAccountsPayable = balanceSheetData.AccountsPayable[index][period] - balanceSheetData.AccountsPayable[index][period - 1];
       cashFlowData.IndirectCash[index][period] = (
         resultsData.Profit[index][period] +
         incomeStatementData.Depriciation[index][period] +
@@ -653,12 +657,13 @@ class Application extends React.Component {
       if(resultsData.Sp[index][period] < .99) {
         resultsData.Sp[index][period] = .99;
       }
-
+      console.log(`profit for each quarter: ${resultsData.Profit[index][period]}`);
       sumProfit += resultsData.Profit[index][period];
       sumSales += resultsData.Sales[index][period];
       sumsp += resultsData.Sp[index][period];
     }
 
+    console.log(`Sum Profit: ${sumProfit}`);
     resultsData.Profit[AVERAGE_SIMULATED_VALUE_POSITION][period] = Math.floor(sumProfit/10);
     resultsData.Sales[AVERAGE_SIMULATED_VALUE_POSITION][period] = Math.floor(sumSales/10);
     resultsData.Sp[AVERAGE_SIMULATED_VALUE_POSITION][period] = sumsp / 10;
