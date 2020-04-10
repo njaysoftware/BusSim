@@ -29,6 +29,7 @@ import CurrentInputs from '../CurrentDecisionsInput/decisionInputs';
 import Period from '../Period/index';
 import FinancialStatements from '../FinancialStatement/index';
 import PerformanceReport from '../PerformanceReport/index';
+import InformationDialog from '../InformationDialog/index';
 import PropTypes from 'prop-types';
 
 const SIMULATE_CLICK = 'SIMULATE_CLICK';
@@ -55,6 +56,7 @@ class Application extends React.Component {
 
       PerformanceReportDialog: false,
       FinancialDialog: false,
+      InformationDialog: false,
     };
   }
   componentDidMount() {
@@ -135,8 +137,8 @@ class Application extends React.Component {
       resultData.Demand[index][1] = 75000;
       resultData.Demand[index][2] = 90000;
       resultData.Demand[index][3] = 121000;
-      resultData.Demand[index][4] = 920000;
-      resultData.Demand[index][5] = 830000;
+      resultData.Demand[index][4] = 92000;
+      resultData.Demand[index][5] = 83000;
       resultData.Demand[index][6] = 103000;
       resultData.Demand[index][7] = 130000;
       resultData.Demand[index][8] = 105000;
@@ -698,6 +700,7 @@ class Application extends React.Component {
       console.log(FINAL_RESULTS_CLICK);
       break;
     case INFORMATION_CLICK:
+      this.setState({InformationDialog: true,});
       console.log(INFORMATION_CLICK);
       break;
     default:
@@ -711,6 +714,9 @@ class Application extends React.Component {
   }
   handleDialogClose() {
     this.setState({FinancialDialog: false,});
+  }
+  handleInformationClose() {
+    this.setState({InformationDialog: false,});
   }
 
   render() {
@@ -760,6 +766,7 @@ class Application extends React.Component {
         </div>
         <PerformanceReport displayOpen={this.state.PerformanceReportDialog} handleClose={this.handlePerformanceClose.bind(this)} period={this.state.period}/>
         <FinancialStatements displayOpen={this.state.FinancialDialog} handleClose={this.handleDialogClose.bind(this)}/>
+        <InformationDialog displayOpen={this.state.InformationDialog} handleClose={this.handleInformationClose.bind(this)}></InformationDialog>
       </div>
     );
   }
