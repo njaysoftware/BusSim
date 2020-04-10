@@ -17,8 +17,15 @@ import PropTypes from 'prop-types';
 import {
   connect,
 } from 'react-redux';
+import numeral from 'numeral';
 import styles from './style';
 
+const _renderDataCell = number => {
+  return <TableCell>{numeral(number).format('$0,0.00')}</TableCell>;
+};
+
+const SIMULATED_DATA_RESULTS = 1;
+const INPUT_DATA_COLUMN = 1;
 const FinancialStatementDialog = (props) => {
   const [value, setValue] = React.useState(0);
   return (
@@ -46,6 +53,7 @@ const FinancialStatementDialog = (props) => {
         <Tab label='11' />
         <Tab label='12' />
       </Tabs>
+      {console.log(props.incomeStatement)}
       <DialogTitle>Financial Statements</DialogTitle>
       <DialogContent>
         <div style={styles.outerContainer}>
@@ -61,67 +69,80 @@ const FinancialStatementDialog = (props) => {
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'>Net Sales</TableCell>
-                  <TableCell>$2,680,558</TableCell>
+                  {_renderDataCell(props.results.Revenue[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell >COG Sold:</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'>Direct Labor</TableCell>
-                  <TableCell>$289,384</TableCell>
+                  {_renderDataCell(props.incomeStatement.DirectLabor[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'>Direct Materials</TableCell>
-                  <TableCell>$289,384</TableCell>
+                  {_renderDataCell(props.incomeStatement.DirectMaterials[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'>Manufacturing</TableCell>
-                  <TableCell>$289,384</TableCell>
+                  {_renderDataCell(props.incomeStatement.ManufacturingOhio[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell >Gross Margin</TableCell>
-                  <TableCell>$289,384</TableCell>
+                  {_renderDataCell(props.incomeStatement.GrossMargin[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell ><b>Budget Exp:</b></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Marketing</b></TableCell>
-                  <TableCell>$289,030</TableCell>
+                  {_renderDataCell(props.decision.market[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Quality</b></TableCell>
-                  <TableCell>$289,030</TableCell>
+                  {_renderDataCell(props.decision.quality[INPUT_DATA_COLUMN][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Technology</b></TableCell>
-                  <TableCell>$289,030</TableCell>
+                  {_renderDataCell(props.decision.technology[INPUT_DATA_COLUMN][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Compensation</b></TableCell>
-                  <TableCell>$289,030</TableCell>
+                  {_renderDataCell(props.decision.incentives[INPUT_DATA_COLUMN][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell ><b>General Exp:</b></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Inventory Carrying</b></TableCell>
-                  <TableCell>$289,030</TableCell>
+                  {_renderDataCell(props.incomeStatement.InventoryCarrying[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Depreciation</b></TableCell>
-                  <TableCell>$105,00</TableCell>
+                  {_renderDataCell(props.incomeStatement.Depriciation[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>General & Admin</b></TableCell>
-                  <TableCell>$105,00</TableCell>
+                  {_renderDataCell(props.incomeStatement.GeneralAdmin[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell><b>Operating Profit</b></TableCell>
+                  {_renderDataCell(props.incomeStatement.OperatingProfit[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
-                  <TableCell align='right'><b>General & Admin</b></TableCell>
-                  <TableCell>$105,00</TableCell>
+                  <TableCell align='right'><b>Net Interest</b></TableCell>
+                  {_renderDataCell(props.incomeStatement.NetInterest[SIMULATED_DATA_RESULTS][value + 1])}
+                </TableRow>
+                <TableRow>
+                  <TableCell align='right'><b>Taxable Income</b></TableCell>
+                  {_renderDataCell(props.incomeStatement.TaxableIncome[SIMULATED_DATA_RESULTS][value + 1])}
+                </TableRow>
+                <TableRow>
+                  <TableCell align='right'><b>Tax</b></TableCell>
+                  {_renderDataCell(props.incomeStatement.Tax[SIMULATED_DATA_RESULTS][value + 1])}
+                </TableRow>
+                <TableRow>
+                  <TableCell align='right'><b>Net Income</b></TableCell>
+                  {_renderDataCell(props.incomeStatement.TaxableIncome[SIMULATED_DATA_RESULTS][value + 1] - props.incomeStatement.Tax[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
               </TableBody>
             </Table>
@@ -142,61 +163,61 @@ const FinancialStatementDialog = (props) => {
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Cash</b></TableCell>
-                  <TableCell align='right'>$100,000</TableCell>
-                  <TableCell align='right'>$95,000</TableCell>
+                  {_renderDataCell(props.results.Cash[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.results.Cash[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>T-Bills</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.decision.tBill[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.decision.tBill[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Accounts Receivable</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.AccountsReceivable[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.AccountsReceivable[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Inventory Value</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.results.Inventory[SIMULATED_DATA_RESULTS][value] * 20)}
+                  {_renderDataCell(props.results.Inventory[SIMULATED_DATA_RESULTS][value + 1] * 20)}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Total Current Assets</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.TotalCurrentAssets[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.TotalCurrentAssets[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell><b>Plant and Equipment</b></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Land</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.Land[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.Land[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Building</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.Building[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.Building[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Less Accum Dep</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.BuildingDepriciation[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.BuildingDepriciation[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Equipment</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.Equipment[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.Equipment[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Less Accum Dep</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.EquipmentDepriciation[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.EquipmentDepriciation[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Total Assets</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.TotalAssets[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.TotalAssets[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell><b>Liabilities:</b></TableCell>
@@ -206,49 +227,49 @@ const FinancialStatementDialog = (props) => {
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Accounts Payable</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.AccountsPayable[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.AccountsPayable[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Short Tearm Loans</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.ShortTermLoans[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.ShortTermLoans[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell><b>Long Term Liabilities</b></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Long Term Loans</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.LongTermLoans[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.LongTermLoans[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell><b>Total Liabilities</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.TotalLiabilities[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.TotalLiabilities[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell><b>Equity:</b></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Common Stock</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.Common[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.Common[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Retained Earnings</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.RetainedEarnings[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.RetainedEarnings[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell align='right'><b>Total Stockholder Equity</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.TotalStockHoldersEquity[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.TotalStockHoldersEquity[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
                 <TableRow>
                   <TableCell><b>Total Liability & Equity</b></TableCell>
-                  <TableCell align='right'>$0</TableCell>
-                  <TableCell align='right'>$0</TableCell>
+                  {_renderDataCell(props.balanceSheet.TotalLiabiltyAndEquity[SIMULATED_DATA_RESULTS][value])}
+                  {_renderDataCell(props.balanceSheet.TotalLiabiltyAndEquity[SIMULATED_DATA_RESULTS][value + 1])}
                 </TableRow>
               </TableBody>
             </Table>

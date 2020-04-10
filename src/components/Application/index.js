@@ -28,6 +28,7 @@ import IndustryAverage from '../IndustryAverage';
 import CurrentInputs from '../CurrentDecisionsInput/decisionInputs';
 import Period from '../Period/index';
 import FinancialStatements from '../FinancialStatement/index';
+import PerformanceReport from '../PerformanceReport/index';
 import PropTypes from 'prop-types';
 
 const SIMULATE_CLICK = 'SIMULATE_CLICK';
@@ -51,6 +52,8 @@ class Application extends React.Component {
       quality: CurrentInputs[2].startValue,
       marketing: CurrentInputs[1].startValue,
       price: CurrentInputs[0].startValue,
+
+      PerformanceReportDialog: false,
       FinancialDialog: false,
     };
   }
@@ -195,7 +198,7 @@ class Application extends React.Component {
     /*decisionData shape
     {
       price: [[], []]
-      marketing: [[]],
+      market: [[]],
       quality: [[]],
       technology: [[]],
       incentives: [[]],
@@ -218,7 +221,7 @@ class Application extends React.Component {
       decisionData.loanPay[index][period] = 0;
       decisionData.dividends[index][period] = period * 3000;
       decisionData.tBill[index][period] = 0;
-      decisionData.production[index][period] = resultData.Demand[index][period];
+      resultData.Production[index][period] = resultData.Demand[index][period];
 
       sumPrice += decisionData.price[index][period];
       sumMarket += decisionData.market[index][period];
@@ -364,7 +367,6 @@ class Application extends React.Component {
       }
       salexp = salexp > (resultsData.Demand[index][period] * 1) ? resultsData.Demand[index][period] * 1 : salexp; //What is the 1
       salexp = salexp < (resultsData.Demand[index][period] * 0.2) ? resultsData.Demand[index][period] * 0.2 : salexp; //What is the .2
-
       resultsData.Sales[index][period] = resultsData.Production[index][period] + resultsData.Inventory[index][period - 1];
 
       if (resultsData.Sales[index][period] > salexp) {
@@ -690,6 +692,7 @@ class Application extends React.Component {
       break;
     case PERFORMANCE_CLICK:
       console.log(PERFORMANCE_CLICK);
+      this.setState({PerformanceReportDialog: true,});
       break;
     case FINAL_RESULTS_CLICK:
       console.log(FINAL_RESULTS_CLICK);
@@ -703,6 +706,9 @@ class Application extends React.Component {
     }
   }
 
+  handlePerformanceClose() {
+    this.setState({PerformanceReportDialog: false,});
+  }
   handleDialogClose() {
     this.setState({FinancialDialog: false,});
   }
@@ -752,6 +758,7 @@ class Application extends React.Component {
         <div style={Styles.industryAverageContainer}>
           <IndustryAverage />
         </div>
+        <PerformanceReport displayOpen={this.state.PerformanceReportDialog} handleClose={this.handlePerformanceClose.bind(this)} period={this.state.period}/>
         <FinancialStatements displayOpen={this.state.FinancialDialog} handleClose={this.handleDialogClose.bind(this)}/>
       </div>
     );
