@@ -146,7 +146,7 @@ class Application extends React.Component {
       resultData.Demand[index][10] = 115000;
       resultData.Demand[index][11] = 138000;
       resultData.Demand[index][12] = 114000;
-      
+
       resultData.Sales[index][0] = 80000;
       resultData.Production[index][0] = 80000;
       resultData.Revenue[index][0] = 3040000;
@@ -158,7 +158,7 @@ class Application extends React.Component {
       decisionData.quality[index][0] = 100000;
       decisionData.technology[index][0] = 100000;
       decisionData.incentives[index][0] = 100000;
-      
+
       balanceSheet.Land[index][0] = 1500000;
       balanceSheet.Building[index][0] = 4500000;
       balanceSheet.Equipment[index][0] = 1500000;
@@ -185,7 +185,6 @@ class Application extends React.Component {
       decisionData.technology[index][0] = 40000 + (index - 1) * 20000;
       decisionData.incentives[index][0] = 30000 + (index - 1) * 20000;
     }
-
     this.props.updateBalanceSheet(balanceSheet);
     this.props.updateCashFlow(cashFlow);
     this.props.updateIncomeBalance(incomeStatement);
