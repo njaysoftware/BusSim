@@ -9,6 +9,8 @@ import React from 'react';
 import CurrentDecisionsInput from '../CurrentDecisionsInput/index';
 import {
   Paper,
+  Checkbox,
+  FormControlLabel,
 } from '@material-ui/core';
 import CurrentInputs from '../CurrentDecisionsInput/decisionInputs';
 import PropTypes from 'prop-types';
@@ -28,12 +30,25 @@ const CurrentDecisions = (props) => {
           }}
         />;
       })}
+      <div>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={props.IndustrialAverageChecked}
+              onChange={props.IndustrialAverageChange}
+            />
+          }
+          label="Purchase Information"
+        />
+      </div>
     </Paper>
   );
 };
 
 CurrentDecisions.propTypes = {
   decisionChange: PropTypes.func.isRequired,
+  IndustrialAverageChange: PropTypes.func.isRequired,
+  IndustrialAverageChecked: PropTypes.bool.isRequired,
 };
 
 export default CurrentDecisions;

@@ -57,11 +57,21 @@ class Application extends React.Component {
       PerformanceReportDialog: false,
       FinancialDialog: false,
       InformationDialog: false,
+      IndustrialAverage: false,
     };
   }
+
+  //This might not work if the state is being cleared in redux.
   componentDidMount() {
     this._initialization(this.props.decision, this.props.results, this.props.incomeStatement, this.props.balanceSheet, this.props.cashFlow);
   }
+
+  _handleindustrialAverageCheckBox() {
+    this.setState((prevState) => {
+      return {IndustrialAverage: !prevState.IndustrialAverage,};
+    });
+  }
+
   _initialization(decisionData, resultData, incomeStatement, balanceSheet, cashFlow) {
     for(let index = 0; index <= 10; index++) {
       for (let jen = 0; jen <= 12; jen++) {
@@ -254,6 +264,7 @@ class Application extends React.Component {
     decisionData.loanPay[USER_INPUT_COLUMN][period] = this.state.loanPay * 1000;
     decisionData.dividends[USER_INPUT_COLUMN][period] = this.state.dividends * 1000;
     decisionData.tBill[USER_INPUT_COLUMN][period] = this.state.tBillInvestments * 1000;
+    decisionData.Info[USER_INPUT_COLUMN][period] = +this.state.IndustrialAverage;
     // update performance
     resultData.Production[USER_INPUT_COLUMN][period] = this.state.production * 1000;
     
@@ -264,7 +275,7 @@ class Application extends React.Component {
   _simulate(period) {
     const NUMBER_OF_PERIODS = 12;
     console.log(period);
-    if(period < NUMBER_OF_PERIODS) {
+    if(period <= NUMBER_OF_PERIODS) {
       this._getInputs(this.props.decision, this.props.results, period);
       console.log(this.props.decision);
       this.props.updateDecisions(this._ai(this.props.decision, this.props.results, period));
@@ -723,6 +734,8 @@ class Application extends React.Component {
       <div style={Styles.gridContainer}>
         <div style={Styles.currentDecisionsContainer}>
           <CurrentDecisions
+            IndustrialAverageChange={this._handleindustrialAverageCheckBox.bind(this)}
+            IndustrialAverageChecked={this.state.IndustrialAverage}
             decisionChange={(value, decisionName) => {
               this.setState({[decisionName]: value,});
             }}
@@ -755,13 +768,13 @@ class Application extends React.Component {
               >Information</Button>
             </div>
           </Paper>
-          <Period period={this.state.period}></Period>
+          <Period period={this.state.period - 1}></Period>
         </div>
         <div style={Styles.currentOutputsContainer}>
           <CurrentOutcomes period={this.state.period}></CurrentOutcomes>
         </div>
         <div style={Styles.industryAverageContainer}>
-          <IndustryAverage />
+          <IndustryAverage period={this.state.period}/>
         </div>
         <PerformanceReport displayOpen={this.state.PerformanceReportDialog} handleClose={this.handlePerformanceClose.bind(this)} period={this.state.period}/>
         <FinancialStatements displayOpen={this.state.FinancialDialog} handleClose={this.handleDialogClose.bind(this)}/>
