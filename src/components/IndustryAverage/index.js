@@ -15,19 +15,45 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-const tempData = [
-  {
-    quarter: 1,
-    price: 34.45,
-    marketing: 150137,
-    quality: 145611,
-    technology: 135904,
-    incentives: 132977,
-    sales: 70111,
-    profit: 99656,
-    stockPrice: 14.65,
+import {
+  connect,
+} from 'react-redux';
+import PropTypes from 'prop-types';
+import numeral from 'numeral';
+
+function _formatIndustrialData(decisionData, resultsData, period) {
+  const AVERAGE_POSITION = 0;
+  const COLUMN_OF_INFO_BOOL = 1;
+  let formattedData = [];
+
+  console.log(decisionData);
+  for (let index = 1; index <= period; index++) {
+    if(decisionData.Info[COLUMN_OF_INFO_BOOL][index]) {
+      formattedData.push({
+        Quarter: index,
+        Price: decisionData.price[AVERAGE_POSITION][index],
+        Marketing: decisionData.market[AVERAGE_POSITION][index],
+        Quality: decisionData.quality[AVERAGE_POSITION][index],
+        Technology: decisionData.technology[AVERAGE_POSITION][index],
+        Incentives: decisionData.incentives[AVERAGE_POSITION][index],
+        Sales: resultsData.Sales[AVERAGE_POSITION][index],
+        Profit: resultsData.Profit[AVERAGE_POSITION][index],
+        StockPrice: resultsData.Sp[AVERAGE_POSITION][index],
+      });
+    }
   }
-];
+  return formattedData;
+}
+
+function _buildDataRow(quarter) {
+  const FORMAT_REGULAR = ['Quarter', 'Sales'];
+  return (
+    <TableRow key={quarter.Quarter}>
+      {Object.entries(quarter).map((value, index) => <TableCell key={index}>{numeral(value[1]).format(FORMAT_REGULAR.includes(value[0]) ? '0,0' : '$0,0.00')}</TableCell>)}
+    </TableRow>
+  );
+}
+
 const IndustryAverage = (props) => {
   return (
     <TableContainer component={Paper}>
@@ -46,25 +72,24 @@ const IndustryAverage = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tempData.map(quarter => (
-            <TableRow key={quarter.quarter}>
-              <TableCell>{quarter.quarter}</TableCell>
-              <TableCell>{quarter.price}</TableCell>
-              <TableCell>{quarter.marketing}</TableCell>
-              <TableCell>{quarter.quality}</TableCell>
-              <TableCell>{quarter.technology}</TableCell>
-              <TableCell>{quarter.incentives}</TableCell>
-              <TableCell>{quarter.sales}</TableCell>
-              <TableCell>{quarter.profit}</TableCell>
-              <TableCell>{quarter.stockPrice}</TableCell>
-            </TableRow>
-          ))
-            
-          }
+          {_formatIndustrialData(props.decision, props.results, props.period).map(quarter => _buildDataRow(quarter))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 };
 
-export default IndustryAverage;
+IndustryAverage.propTypes = {
+  decision: PropTypes.object.isRequired,
+  results: PropTypes.object.isRequired,
+  period: PropTypes.number.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    decision: state.decision,
+    results: state.results,
+  };
+}
+
+export default connect(mapStateToProps)(IndustryAverage);

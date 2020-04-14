@@ -15,7 +15,7 @@ export const RESET_PERIOD = 'RESET_PERIOD';
 export function updateBalanceSheet(payload) {
   return {
     type: UPDATE_BALANCE_SHEET,
-    payload
+    payload,
   };
 }
 
@@ -28,7 +28,7 @@ export function resetBalanceSheet() {
 export function updateIncomeBalance(payload) {
   return {
     type: UPDATE_INCOME_BALANCE,
-    payload
+    payload,
   };
 }
 
@@ -41,7 +41,7 @@ export function resetIncomeBalance() {
 export function updateResults(payload) {
   return {
     type: UPDATE_RESULTS,
-    payload
+    payload,
   };
 }
 
@@ -54,7 +54,7 @@ export function resetResults() {
 export function updateDecisions(payload) {
   return {
     type: UPDATE_DECISIONS,
-    payload
+    payload,
   };
 }
 
@@ -67,24 +67,24 @@ export function resetDecisions() {
 export function updateCashFlow(payload) {
   return {
     type: UPDATE_CASH_FLOW,
-    payload
+    payload,
   };
 }
 
 export function resetCashFlow() {
   return {
-    type: RESET_CASH_FLOW
+    type: RESET_CASH_FLOW,
   };
 }
 
 export function incrementPeriod() {
   return {
-    type: INCREMENT_PERIOD
+    type: INCREMENT_PERIOD,
   };
 }
 
 export function resetPeriod() {
   return {
-    type: RESET_PERIOD
+    type: RESET_PERIOD,
   };
 }
