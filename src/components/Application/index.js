@@ -742,30 +742,42 @@ class Application extends React.Component {
           ></CurrentDecisions>
         </div>
         <div style={Styles.buttonsContainer}>
-          <Paper elevation={3}>
+          <Paper elevation={3} style={Styles.paper}>
             <div style={Styles.buttonRow}>
-              <Button
-                onClick={() => this.handleClick(SIMULATE_CLICK)}
-              >Simulate</Button>
-              <Button
-                onClick={() => this.handleClick(FINANCIAL_CLICK)}
-              >Financials</Button>
-            </div>
-            <div style={Styles.buttonRow}>
-              <Button
-                onClick={() => this.handleClick(RESET_CLICK)}
-              >Reset</Button>
-              <Button
-                onClick={() => this.handleClick(PERFORMANCE_CLICK)}
-              >Performance</Button>
-            </div>
-            <div style={Styles.buttonRow}>
-              <Button
-                onClick={() => this.handleClick(FINAL_RESULTS_CLICK)}
-              >Final Results</Button>
-              <Button
-                onClick={() => this.handleClick(INFORMATION_CLICK)}
-              >Information</Button>
+              <div style={Styles.buttonColumn}>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={() => this.handleClick(SIMULATE_CLICK)}
+                >Simulate</Button>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={() => this.handleClick(RESET_CLICK)}
+                >Reset</Button>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={() => this.handleClick(FINAL_RESULTS_CLICK)}
+                >Final Results</Button>
+              </div>
+              <div style={Styles.buttonColumn}>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={() => this.handleClick(FINANCIAL_CLICK)}
+                >Financials</Button>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={() => this.handleClick(PERFORMANCE_CLICK)}
+                >Performance</Button>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={() => this.handleClick(INFORMATION_CLICK)}
+                >Information</Button>
+              </div>
             </div>
           </Paper>
           <Period period={this.state.period - 1}></Period>

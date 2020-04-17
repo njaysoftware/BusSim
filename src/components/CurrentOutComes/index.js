@@ -16,15 +16,16 @@ import {
 import PropTypes from 'prop-types';
 
 import numeral from 'numeral';
+import styles from './style';
 
 const AVERAGE_SIMULATED_VALUE_POSITION = 1;
 
 const CurrentOutcomes = (props) => {
   console.log(props);
-  console.log(props.period)
+  console.log(props.period);
   return (
-    <Paper elevation={3}>
-      <h3>Current Outcomes</h3>
+    <Paper elevation={3} style={styles.paper}>
+      <h3 style={styles.header}>Current Outcomes</h3>
       <Outcome
         title='Demand'
         value={props.period === 1 ? numeral(80000).format('0,0') : numeral(props.results.Demand[1][props.period - 1]).format('0,0')}

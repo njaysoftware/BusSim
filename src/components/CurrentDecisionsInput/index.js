@@ -11,11 +11,12 @@ import {
   IconButton,
   ButtonGroup,
   Chip,
+  Card,
   makeStyles,
 } from '@material-ui/core';
 // @TODO: Figure out why this does not work as a relative import
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(Styles);
@@ -34,34 +35,30 @@ const CurrentDecisionsInput = (props) => {
   }
   return (
     <div style={Styles.Container}>
-      <div style={Styles.LabelContainer}>
-        <label>{props.title}</label>
-      </div>
-      <div style={Styles.ChipContainer}>
-        <Chip label={counter}></Chip>
-      </div>
-      <div style={Styles.ButtonContainer}>
-        <ButtonGroup
-          orientation="vertical"
-        >
-          <IconButton
-            onClick={() => handleChange(props.changeValue)}
-            classes={{
-              root: classes.customButton,
-            }}
-          >
-            <KeyboardArrowUpIcon fontSize='small'/>
-          </IconButton>
+      <Card variant='outlined' style={Styles.CardContainer}>
+        <div style={Styles.LabelContainer}>
+          <label>{props.title}</label>
+        </div>
+        <div style={Styles.ButtonContainer}>
           <IconButton
             onClick={() => handleChange(-props.changeValue)}
             classes={{
               root: classes.customButton,
             }}
           >
-            <KeyboardArrowDownIcon fontSize='small'/>
+            <RemoveIcon></RemoveIcon>
           </IconButton>
-        </ButtonGroup>
-      </div>
+          <Chip label={counter}></Chip>
+          <IconButton
+            onClick={() => handleChange(props.changeValue)}
+            classes={{
+              root: classes.customButton,
+            }}
+          >
+            <AddIcon></AddIcon>
+          </IconButton>
+        </div>
+      </Card>
     </div>
   );
 };

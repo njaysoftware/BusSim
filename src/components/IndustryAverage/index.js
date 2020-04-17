@@ -20,6 +20,7 @@ import {
 } from 'react-redux';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
+import styles from './styles';
 
 function _formatIndustrialData(decisionData, resultsData, period) {
   const AVERAGE_POSITION = 0;
@@ -57,24 +58,28 @@ function _buildDataRow(quarter) {
 const IndustryAverage = (props) => {
   return (
     <TableContainer component={Paper}>
-      <Table size="small" aria-label="Industry Average Table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Quarter</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Marketing</TableCell>
-            <TableCell>Quality</TableCell>
-            <TableCell>Technology</TableCell>
-            <TableCell>Incentives</TableCell>
-            <TableCell>Sales</TableCell>
-            <TableCell>Profit</TableCell>
-            <TableCell>Stock Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {_formatIndustrialData(props.decision, props.results, props.period).map(quarter => _buildDataRow(quarter))}
-        </TableBody>
-      </Table>
+      <h3 style={styles.header}>Industrial Average</h3>
+
+      <div style={styles.wrapperContainer}>
+        <Table size="small" stickyHeader aria-label="Industry Average Table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Quarter</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Marketing</TableCell>
+              <TableCell>Quality</TableCell>
+              <TableCell>Technology</TableCell>
+              <TableCell>Incentives</TableCell>
+              <TableCell>Sales</TableCell>
+              <TableCell>Profit</TableCell>
+              <TableCell>Stock Price</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {_formatIndustrialData(props.decision, props.results, props.period).map(quarter => _buildDataRow(quarter))}
+          </TableBody>
+        </Table>
+      </div>
     </TableContainer>
   );
 };

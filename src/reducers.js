@@ -1,5 +1,5 @@
 import {
-  combineReducers
+  combineReducers,
 } from 'redux';
 import {
   UPDATE_BALANCE_SHEET,
@@ -12,6 +12,7 @@ import {
   RESET_RESULTS,
   RESET_DECISIONS,
   RESET_CASH_FLOW,
+  INCREMENT_PERIOD,
 } from './actions';
 function _initalData() {
   let initialArray = [];
@@ -19,6 +20,14 @@ function _initalData() {
     initialArray.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   }
   return initialArray;
+}
+function period(state = {}, action) {
+  switch(action.type) {
+  case INCREMENT_PERIOD:
+    return state.period + 1;
+  default:
+    return state;
+  }
 }
 function balanceSheet(state = {
   AccountsReceivable: _initalData(),
@@ -209,4 +218,5 @@ export const rootReducer = combineReducers({
   results,
   decision,
   cashFlow,
+  period,
 });

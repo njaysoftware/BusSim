@@ -11,22 +11,34 @@ export default {
     height: '100%',
     gridGap: '10px',
     padding: '10px',
+    paddingTop: '20px',
     gridTemplateColumns: '1fr 1fr 1fr',
-    gridTemplateRows: '2fr 1fr'
+    gridTemplateRows: 'auto',
   },
   currentDecisionsContainer: {
   },
   buttonsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   currentOutputsContainer: {
   },
   industryAverageContainer: {
     gridColumnStart: 1,
     gridColumnEnd: 4,
-    maxHeight: '250px',
+    height: '250px',
+  },
+  buttonColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
   },
   buttonRow: {
     display: 'flex',
+    height: '100%',
     justifyContent: 'space-around',
-  }
+  },
+  paper: {
+    height: '35%',
+  },
 };

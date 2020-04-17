@@ -8,19 +8,30 @@ Purpose is to supply a repeatable component that can be used as a repeat for the
 
 export default {
   Container: {
-    width: '100%',
+    display: 'flex',
+    justifyContent: 'Center',
   },
   LabelContainer: {
-    display: 'inline-block',
-    fontSize: '12px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    fontSize: '1rem',
+    position: 'absolute',
+    height: '32px',
+    left: '8%',
   },
   ChipContainer: {
-    display: 'inline-block',
   },
   ButtonContainer: {
-    display: 'inline-block',
+    position: 'relative',
+    left: '60%',
   },
   customButton: {
     padding: 0,
-  }
+  },
+  CardContainer: {
+    display: 'flex',
+    width: '75%',
+    position: 'relative',
+  },
 };
