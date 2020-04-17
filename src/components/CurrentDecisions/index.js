@@ -2,8 +2,8 @@
 Author: Nathaniel Padgett
 Date: 01/27/2020
 Copyright: Nathaniel Padgett 2020
-Purpose:
-The main current decisions component for rendering all the options to be changed
+Purpose: 
+ The main current decisions component for rendering all the options to be changed
  */
 import React from 'react';
 import CurrentDecisionsInput from '../CurrentDecisionsInput/index';
@@ -14,34 +14,40 @@ import {
 } from '@material-ui/core';
 import CurrentInputs from '../CurrentDecisionsInput/decisionInputs';
 import PropTypes from 'prop-types';
+import styles from './styles';
 
 const CurrentDecisions = (props) => {
   return (
-    <Paper elevation={3}>
-      <h3>Current Decisions</h3>
-      {CurrentInputs.map((element) => {
-        return <CurrentDecisionsInput 
-          title={element.title} 
-          startValue={element.startValue} 
-          changeValue={element.changeValue} 
-          key={element.key}
-          valueChangeEvent={(value) => {
-            props.decisionChange(value, element.name);
-          }}
-        />;
-      })}
-      <div>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={props.IndustrialAverageChecked}
-              onChange={props.IndustrialAverageChange}
+    <div style={styles.outerWrapper}>
+      <Paper elevation={3} style={styles.outerWrapper}>
+        <h3 style={styles.header}>Current Decisions</h3>
+        <div style={styles.innerWrapper}>
+          {CurrentInputs.map((element) => {
+            return <CurrentDecisionsInput 
+              title={element.title} 
+              startValue={element.startValue} 
+              changeValue={element.changeValue} 
+              key={element.key}
+              valueChangeEvent={(value) => {
+                props.decisionChange(value, element.name);
+              }}
+            />;
+          })}
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={props.IndustrialAverageChecked}
+                  onChange={props.IndustrialAverageChange}
+                />
+              }
+              label="Purchase Information"
             />
-          }
-          label="Purchase Information"
-        />
-      </div>
-    </Paper>
+          </div>
+
+        </div>
+      </Paper>
+    </div>
   );
 };
 

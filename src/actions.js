@@ -12,6 +12,7 @@ export const INCREMENT_PERIOD = 'INCREMENT_PERIOD';
 export const RESET_PERIOD = 'RESET_PERIOD';
 
 
+
 export function updateBalanceSheet(payload) {
   return {
     type: UPDATE_BALANCE_SHEET,
