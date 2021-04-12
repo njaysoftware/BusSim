@@ -52,7 +52,7 @@ const CurrentOutcomes = (props) => {
       />
       {/** @TODO need to add hook to balance sheet data */}
       <Outcome
-        title='Dept / Equity'
+        title='Debt / Equity'
         value={props.period === 1 ? numeral(.07).format('0.0%') : numeral(props.results.Profit[1][props.period - 1] / props.results.Revenue[1][props.period - 1]).format('0.0%')}
       />
       <Outcome
