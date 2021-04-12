@@ -12,6 +12,7 @@ import {
   RESET_RESULTS,
   RESET_DECISIONS,
   RESET_CASH_FLOW,
+  RESET_PERIOD,
   INCREMENT_PERIOD,
 } from './actions';
 function _initalData() {
@@ -25,6 +26,11 @@ function period(state = {}, action) {
   switch(action.type) {
   case INCREMENT_PERIOD:
     return state.period + 1;
+  case RESET_PERIOD:
+    return {
+      ...state,
+      period: 0,
+    };
   default:
     return state;
   }
@@ -50,7 +56,6 @@ function balanceSheet(state = {
   TotalLiabiltyAndEquity: _initalData(),
 }, action) {
   switch (action.type) {
-
   case UPDATE_BALANCE_SHEET:
     return action.payload;
   case RESET_BALANCE_SHEET:
@@ -107,8 +112,8 @@ function incomeStatement(state = {
       InventoryCarrying: _initalData(),
       GeneralAdmin: _initalData(),
       Depriciation: _initalData(),
-      penalty: _initalData(),
-      opinc: _initalData(),
+      Penalty: _initalData(),
+      OperatingProfit: _initalData(),
       NetInterest: _initalData(),
       TaxableIncome: _initalData(),
       Tax: _initalData(),
@@ -143,7 +148,7 @@ function results(state = {
       Revenue: _initalData(),
       Profit: _initalData(),
       Inventory: _initalData(),
-      Exp: _initalData(),
+      Expenses: _initalData(),
       Vc: _initalData(),
       Sp: _initalData(),
       Cash: _initalData(),
@@ -172,13 +177,15 @@ function decision(state = {
   case RESET_DECISIONS:
     return {
       price: _initalData(),
-      marketing: _initalData(),
+      market: _initalData(),
       quality: _initalData(),
       technology: _initalData(),
       incentives: _initalData(),
       loanPay: _initalData(),
       dividends: _initalData(),
+      production: _initalData(),
       tBill: _initalData(),
+      Info: _initalData(),
     };
   default:
     return state;
@@ -200,13 +207,13 @@ function cashFlow(state = {
     return action.payload;
   case RESET_CASH_FLOW:
     return {
-      InvestingChange: _initalData(),
+      InvestmentChange: _initalData(),
       FinancialActivities: _initalData(),
       OperatingExpenses: _initalData(),
       IndirectCash: _initalData(),
       DirectCash: _initalData(),
-      Cashin: _initalData(),
-      Cashout: _initalData(),
+      CashIn: _initalData(),
+      CashOut: _initalData(),
     };
   default:
     return state;

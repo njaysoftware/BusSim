@@ -18,6 +18,12 @@ import {
   updateIncomeBalance,
   updateResults,
   incrementPeriod,
+  resetBalanceSheet,
+  resetCashFlow,
+  resetDecisions,
+  resetIncomeBalance,
+  resetPeriod,
+  resetResults,
 } from '../../actions';
 import {
   connect,
@@ -479,7 +485,8 @@ class Application extends React.Component {
       incomeStatementData.InventoryCarrying[index][period] = resultsData.Inventory[index][period] * 1; // Why are we multiplying by 1
 
       incomeStatementData.GeneralAdmin[index][period] = decisionData.Info[index][period] === 1 ? incomeStatementData.GeneralAdmin[index][0] + 20000 : incomeStatementData.GeneralAdmin[index][0]; // So decisonData Info says if the user has checked the checkbox for Purchase Information
-
+      console.log(incomeStatementData);
+      console.log(balanceSheetData);
       incomeStatementData.NetInterest[index][period] = balanceSheetData.LongTermLoans[index][period - 1] * .02 + balanceSheetData.ShortTermLoans[index][period - 1] * .1/4.0 - balanceSheetData.Invest[index][period - 1] * .06 / 4.0 + incomeStatementData.Penalty[index][period - 1];
       // @TODO: Exp needs to be renaimed to what is is actually used for
       resultsData.Expenses[index][period] = (
@@ -700,7 +707,14 @@ class Application extends React.Component {
       this.setState({FinancialDialog: true,});
       break;
     case RESET_CLICK:
-      console.log(RESET_CLICK);
+      this.props.resetBalanceSheet();
+      this.props.resetIncomeBalance();
+      this.props.resetResults();
+      this.props.resetDecisions();
+      this.props.resetCashFlow();
+      this.setState({period: 1,});
+      this._initialization(this.props.decision, this.props.results, this.props.incomeStatement, this.props.balanceSheet, this.props.cashFlow);
+      // @TODO: Remove this this.props.resetPeriod();
       break;
     case PERFORMANCE_CLICK:
       console.log(PERFORMANCE_CLICK);
@@ -826,6 +840,12 @@ const mapDispatchToProps = dispatch => {
     updateDecisions: (payload) => dispatch(updateDecisions(payload)),
     updateResults: (payload) => dispatch(updateResults(payload)),
     incrementPeriod: () => dispatch(incrementPeriod()),
+    resetBalanceSheet: () => dispatch(resetBalanceSheet()),
+    resetCashFlow: () => dispatch(resetCashFlow()),
+    resetDecisions: () => dispatch(resetDecisions()),
+    resetIncomeBalance: () => dispatch(resetIncomeBalance()),
+    resetPeriod: () => dispatch(resetPeriod()),
+    resetResults: () => dispatch(resetResults()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Application);
