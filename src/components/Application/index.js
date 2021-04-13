@@ -36,6 +36,7 @@ import Period from '../Period/index';
 import FinancialStatements from '../FinancialStatement/index';
 import PerformanceReport from '../PerformanceReport/index';
 import InformationDialog from '../InformationDialog/index';
+import FinalResultsDialog from '../FinalResults/index';
 import PropTypes from 'prop-types';
 
 const SIMULATE_CLICK = 'SIMULATE_CLICK';
@@ -683,7 +684,6 @@ class Application extends React.Component {
       sumSales += resultsData.Sales[index][period];
       sumsp += resultsData.Sp[index][period];
     }
-
     console.log(`Sum Profit: ${sumProfit}`);
     resultsData.Profit[AVERAGE_SIMULATED_VALUE_POSITION][period] = Math.floor(sumProfit/10);
     resultsData.Sales[AVERAGE_SIMULATED_VALUE_POSITION][period] = Math.floor(sumSales/10);
@@ -721,6 +721,7 @@ class Application extends React.Component {
       this.setState({PerformanceReportDialog: true,});
       break;
     case FINAL_RESULTS_CLICK:
+      this.setState({FinalResultsDialog: true,});
       console.log(FINAL_RESULTS_CLICK);
       break;
     case INFORMATION_CLICK:
@@ -741,6 +742,9 @@ class Application extends React.Component {
   }
   handleInformationClose() {
     this.setState({InformationDialog: false,});
+  }
+  handleFinalResultsDialogClose() {
+    this.setState({FinalResultsDialog: false,});
   }
 
   render() {
@@ -773,6 +777,7 @@ class Application extends React.Component {
                   variant='contained'
                   color='primary'
                   onClick={() => this.handleClick(FINAL_RESULTS_CLICK)}
+                  disabled={this.state.period !== 13}
                 >Final Results</Button>
               </div>
               <div style={Styles.buttonColumn}>
@@ -805,6 +810,7 @@ class Application extends React.Component {
         <PerformanceReport displayOpen={this.state.PerformanceReportDialog} handleClose={this.handlePerformanceClose.bind(this)} period={this.state.period}/>
         <FinancialStatements displayOpen={this.state.FinancialDialog} handleClose={this.handleDialogClose.bind(this)}/>
         <InformationDialog displayOpen={this.state.InformationDialog} handleClose={this.handleInformationClose.bind(this)}></InformationDialog>
+        <FinalResultsDialog displayOpen={this.state.FinalResultsDialog} handleClose={this.handleFinalResultsDialogClose.bind(this)}></FinalResultsDialog>
       </div>
     );
   }
