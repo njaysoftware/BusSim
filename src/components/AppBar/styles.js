@@ -1,11 +1,11 @@
 export default {
   header: {
     textAlign: 'left',
-    backgroundColor: '#bf9833'
+    backgroundColor: '#bf9833',
   },
   leftContainer: {
     width: '80%',
-    height: '100%'
+    height: '100%',
   },
   rightContainer: {
     width: '20%',
@@ -20,6 +20,6 @@ export default {
   },
   titleHeader: {
     fontSize: '25px',
-    paddingLeft: '10px'
-  }
+    paddingLeft: '10px',
+  },
 };
