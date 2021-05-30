@@ -37,7 +37,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - run: echo"deploying project to firebase"
+      - run: echo "deploying project to firebase"
       - uses: actions/checkout@v2
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
