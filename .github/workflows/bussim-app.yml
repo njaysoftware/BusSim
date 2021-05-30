@@ -3,6 +3,7 @@ on: [push]
   # push:
   #   branches:
   #     - master
+
 jobs:
   linting:
     runs-on: ubuntu-latest
@@ -21,10 +22,10 @@ jobs:
     steps:
       - run: echo "building bussim"
       - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: Borales/actions-yarn@v2.0.0
         with:
           cmd: install # will run `yarn install` command
-      - uses: boralse/actions-yarn@2.0.0
+      - uses: Boralse/actions-yarn@2.0.0
         with:
           cmd: build # will run `yarn build` command
 
