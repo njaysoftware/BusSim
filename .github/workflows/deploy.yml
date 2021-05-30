@@ -1,9 +1,0 @@
-name: bussim app
-on: [push]
-jobs:
-  test-version:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "test"
-
-
