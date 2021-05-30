@@ -30,13 +30,17 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: bussim-build
+          name: build
           path: build
 
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+      - name: Download bussim-build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
       - run: echo "deploying project to firebase"
       - uses: actions/checkout@v2
       - uses: FirebaseExtended/action-hosting-deploy@v0
