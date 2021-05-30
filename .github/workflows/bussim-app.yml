@@ -1,0 +1,24 @@
+name: bussim app
+on:
+  push:
+    branches:
+      - master
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "linting the project"
+  tests:
+    needs: linting
+    steps:
+      - run: echo "testing the project"
+  build:
+    needs: [linting, tests]
+    steps:
+      - run: echo "building the project"
+  deploy:
+    needs: [build]
+    steps:
+      - run: echo"deploying project to firebase"
+
+
