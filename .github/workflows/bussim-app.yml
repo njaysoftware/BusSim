@@ -42,7 +42,7 @@ jobs:
         with:
           name: build
       - run: echo "deploying project to firebase"
-      - uses: actions/checkout@v2
+      - run: ls -la
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
