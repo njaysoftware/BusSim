@@ -41,6 +41,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
+          path: build
       - run: echo "deploying project to firebase"
       - run: mkdir build && mv !(build) build/
       - run: ls -la
