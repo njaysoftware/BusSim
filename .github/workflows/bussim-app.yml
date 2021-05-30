@@ -1,5 +1,5 @@
 name: bussim app
-on: [push]
+on:
   push:
     branches:
       - master
