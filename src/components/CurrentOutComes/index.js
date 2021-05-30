@@ -18,7 +18,8 @@ import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import styles from './style';
 
-const AVERAGE_SIMULATED_VALUE_POSITION = 1;
+// @TODO
+// const AVERAGE_SIMULATED_VALUE_POSITION = 1;
 
 const CurrentOutcomes = (props) => {
   console.log(props);

@@ -22,7 +22,7 @@ module.exports = {
     "react"
   ],
   "rules": {
-    "comma-dangle": ["error", {
+    "comma-dangle": ["warn", {
       "arrays": "never",
       "objects": "always",
       "imports": "always",

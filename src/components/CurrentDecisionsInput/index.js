@@ -8,10 +8,9 @@ Purpose is to supply a repeatable component that can be used as a repeat for the
 import React from 'react';
 import Styles from './styles';
 import {
-  IconButton,
-  ButtonGroup,
-  Chip,
   Card,
+  Chip,
+  IconButton,
   makeStyles,
 } from '@material-ui/core';
 // @TODO: Figure out why this does not work as a relative import

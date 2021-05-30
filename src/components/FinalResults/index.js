@@ -4,8 +4,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Tabs,
-  Tab,
   Table,
   TableHead,
   TableCell,
@@ -24,8 +22,9 @@ const _renderDataCell = (number) => {
   return <TableCell>{numeral(number).format('0,0')}</TableCell>;
 };
 
-const SIMULATED_DATA_RESULTS = 1;
-const INPUT_DATA_COLUMN = 1;
+// @TODO
+// const SIMULATED_DATA_RESULTS = 1;
+// const INPUT_DATA_COLUMN = 1;
 const FinalResultsDialog = (props) => {
   return (
     <Dialog open={props.displayOpen} onClose={props.handleClose} maxWidth='lg'>
