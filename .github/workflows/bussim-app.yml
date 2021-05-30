@@ -27,12 +27,26 @@ jobs:
           node-version: '14'
       - run: yarn install
       - run: yarn build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: bussim-build
+          path: build
 
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - run: echo"deploying project to firebase"
+      - uses: actions/checkout@v2
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BUS_SIM_BAE06 }}'
+          channelId: live
+          projectId: bus-sim-bae06
+            env:
+              FIREBASE_CLI_PREVIEWS: hostingchannels
+
 
 

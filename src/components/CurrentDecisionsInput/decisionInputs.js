@@ -61,5 +61,5 @@ export default [
     title: 'Production',
     startValue: 80,
     changeValue: 1,
-  },
+  }
 ];
