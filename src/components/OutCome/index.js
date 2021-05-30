@@ -9,6 +9,8 @@ import React from 'react';
 import {
   Chip,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
+
 const OutCome = (props) => {
   return (
     <div>
@@ -20,6 +22,11 @@ const OutCome = (props) => {
       </div>
     </div>
   );
+};
+
+OutCome.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 export default OutCome;

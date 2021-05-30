@@ -470,7 +470,7 @@ class Application extends React.Component {
       );
       
       balanceSheetData.Land[index][period] = balanceSheetData.Land[index][period - 1];
-// This seems confusing in this area.
+      // This seems confusing in this area.
       balanceSheetData.Building[index][period] = balanceSheetData.Building[index][period - 1];
 
       balanceSheetData.BuildingDepriciation[index][period] = balanceSheetData.BuildingDepriciation[index][period - 1] - (.01 * balanceSheetData.Building[index][period]);
@@ -817,17 +817,22 @@ class Application extends React.Component {
 }
 
 Application.propTypes = {
+  balanceSheet: PropTypes.object.isRequired,
+  cashFlow: PropTypes.object.isRequired,
+  decision: PropTypes.object.isRequired,
+  incomeStatement: PropTypes.object.isRequired,
+  incrementPeriod: PropTypes.func.isRequired,
+  resetBalanceSheet: PropTypes.func.isRequired,
+  resetCashFlow: PropTypes.func.isRequired,
+  resetDecisions: PropTypes.func.isRequired,
+  resetIncomeBalance: PropTypes.func.isRequired,
+  resetResults: PropTypes.func.isRequired,
+  results: PropTypes.object.isRequired,
   updateBalanceSheet: PropTypes.func.isRequired,
   updateCashFlow: PropTypes.func.isRequired,
-  updateIncomeBalance: PropTypes.func.isRequired,
   updateDecisions: PropTypes.func.isRequired,
+  updateIncomeBalance: PropTypes.func.isRequired,
   updateResults: PropTypes.func.isRequired,
-  incrementPeriod: PropTypes.func.isRequired,
-  balanceSheet: PropTypes.object.isRequired,
-  incomeStatement: PropTypes.object.isRequired,
-  results: PropTypes.object.isRequired,
-  decision: PropTypes.object.isRequired,
-  cashFlow: PropTypes.object.isRequired,
 };
 function mapStateToProps(state) {
   return {

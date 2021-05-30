@@ -9,10 +9,11 @@ import styles from './styles';
 import {
   Menu,
   MenuItem,
-  IconButton
+  IconButton,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 const AppBar = (props) => {
@@ -54,6 +55,10 @@ const AppBar = (props) => {
       </div>
     </header>
   );
+};
+
+AppBar.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 
 export default AppBar;
