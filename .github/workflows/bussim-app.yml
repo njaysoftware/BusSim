@@ -47,6 +47,3 @@ jobs:
           projectId: bus-sim-bae06
             env:
               FIREBASE_CLI_PREVIEWS: hostingchannels
-
-
-
